@@ -114,6 +114,18 @@ CREATE TABLE `hobbies` (
 
 /*Data for the table `hobbies` */
 
+/*Table structure for table `competencias` */
+
+DROP TABLE IF EXISTS `competencias`;
+
+CREATE TABLE `competencias` (
+  `ID_Competencia` int(11) NOT NULL AUTO_INCREMENT,
+  `Descricao` varchar(5000) DEFAULT NULL,
+  PRIMARY KEY (`ID_Competencia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `competencias` */
+
 /*Table structure for table `identificacao` */
 
 DROP TABLE IF EXISTS `identificacao`;
@@ -132,6 +144,7 @@ CREATE TABLE `identificacao` (
   `ID_Tel` int(11) NOT NULL,
   `ID_Foto` int(11) NOT NULL,
   `ID_Experiencia` int(11) NOT NULL,
+  `ID_Competencia` int(11) NOT NULL,
   `ID_CV` int(11) NOT NULL,
   `ID_Hobbie` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -141,8 +154,10 @@ CREATE TABLE `identificacao` (
   KEY `identificacao-cv` (`ID_CV`),
   KEY `identificacao-hobbies` (`ID_Hobbie`),
   KEY `identificacao-experiencia` (`ID_Experiencia`),
+  KEY `identificacao-competencia` (`ID_Competencia`),
   CONSTRAINT `identificacao-cv` FOREIGN KEY (`ID_CV`) REFERENCES `cv` (`ID_CV`),
   CONSTRAINT `identificacao-experiencia` FOREIGN KEY (`ID_Experiencia`) REFERENCES `experencia` (`ID_Experencia`),
+  CONSTRAINT `identificacao-competencia` FOREIGN KEY (`ID_Competencia`) REFERENCES `competencias` (`ID_Competencia`),
   CONSTRAINT `identificacao-foto` FOREIGN KEY (`ID_Foto`) REFERENCES `foto` (`ID_Foto`),
   CONSTRAINT `identificacao-hobbies` FOREIGN KEY (`ID_Hobbie`) REFERENCES `hobbies` (`ID_Hobbie`),
   CONSTRAINT `identificacao-morada` FOREIGN KEY (`ID_Morada`) REFERENCES `morada` (`ID_Morada`),
