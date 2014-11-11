@@ -9,10 +9,9 @@
  */
 public class ErrorStatement {
     public static void Err(String err) {
-        javax.swing.JOptionPane optionPane = new javax.swing.JOptionPane(err, javax.swing.JOptionPane.ERROR_MESSAGE);
-        javax.swing.JDialog dialog = optionPane.createDialog("");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+        
     }
-     
+    public static void Info(String Mes) {
+        
+    }
 }
