@@ -94,14 +94,15 @@ public class SQLconnector {
     
    public static boolean SQLVerify(String SELECT, String ToVERIFY, boolean Cicle) {
        boolean correct = false;
+       boolean NotFound = true;
        try {
            java.sql.Statement SQLSelectStatement = connServer.createStatement();
            java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SELECT);
            if (Cicle) {
-               while (SQLSelectResult.next()) {
+               while (SQLSelectResult.next() && NotFound) {
                    if ( ToVERIFY == SQLSelectResult.getString(1)){
                        correct = true;
-                       break;
+                       NotFound = false;
                    } else {
                        correct = false;
                    }
