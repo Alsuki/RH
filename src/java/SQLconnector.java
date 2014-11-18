@@ -92,5 +92,21 @@ public class SQLconnector {
     //public static String SQLInsert() {
     //}
     
+   public static boolean SQLVerify(String SELECT, String ToVERIFY) {
+       boolean correct = false;
+       try {
+           java.sql.Statement SQLSelectStatement = connServer.createStatement();
+           java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SELECT);
+           if (ToVERIFY == SQLSelectResult.getString(1) ){
+               correct = true;
+           } else {
+               correct = false;
+           }
+       } catch (java.sql.SQLException e){
+           e.printStackTrace();
+       }
+       return correct;
+       
+   }
     
 }
