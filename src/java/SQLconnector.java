@@ -92,16 +92,28 @@ public class SQLconnector {
     //public static String SQLInsert() {
     //}
     
-   public static boolean SQLVerify(String SELECT, String ToVERIFY) {
+   public static boolean SQLVerify(String SELECT, String ToVERIFY, boolean Cicle) {
        boolean correct = false;
        try {
            java.sql.Statement SQLSelectStatement = connServer.createStatement();
            java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SELECT);
-           if (ToVERIFY == SQLSelectResult.getString(1) ){
-               correct = true;
+           if (Cicle) {
+               while (SQLSelectResult.next()) {
+                   if ( ToVERIFY == SQLSelectResult.getString(1)){
+                       correct = true;
+                       break;
+                   } else {
+                       correct = false;
+                   }
+               }
            } else {
-               correct = false;
+               if (ToVERIFY == SQLSelectResult.getString(1) ){
+                   correct = true;
+               } else {
+                   correct = false;
+               }
            }
+           SQLSelectStatement.close();
        } catch (java.sql.SQLException e){
            e.printStackTrace();
        }
