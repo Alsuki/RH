@@ -93,6 +93,13 @@ public class SQLconnector {
     //}
     
    public static boolean SQLVerify(String SELECT, String ToVERIFY, boolean Cicle) {
+       //Executes a SQL query recived via the SELECT string and compares it with
+       //the string ToVERIFY.
+       //Cicle is a boolean variable that determines if the SQL query should be run 
+       //to the end of the table.
+       //it returns true or false if ToVERIFY is found and identical to what is stored 
+       //on the database.
+
        boolean correct = false;
        boolean NotFound = true;
        try {
