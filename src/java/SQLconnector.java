@@ -92,16 +92,36 @@ public class SQLconnector {
     //public static String SQLInsert() {
     //}
     
-   public static boolean SQLVerify(String SELECT, String ToVERIFY) {
+   public static boolean SQLVerify(String SELECT, String ToVERIFY, boolean Cicle) {
+       //Executes a SQL query recived via the SELECT string and compares it with
+       //the string ToVERIFY.
+       //Cicle is a boolean variable that determines if the SQL query should be run 
+       //to the end of the table.
+       //it returns true or false if ToVERIFY is found and identical to what is stored 
+       //on the database.
+
        boolean correct = false;
+       boolean NotFound = true;
        try {
            java.sql.Statement SQLSelectStatement = connServer.createStatement();
            java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SELECT);
-           if (ToVERIFY == SQLSelectResult.getString(1) ){
-               correct = true;
+           if (Cicle) {
+               while (SQLSelectResult.next() && NotFound) {
+                   if ( ToVERIFY == SQLSelectResult.getString(1)){
+                       correct = true;
+                       NotFound = false;
+                   } else {
+                       correct = false;
+                   }
+               }
            } else {
-               correct = false;
+               if (ToVERIFY == SQLSelectResult.getString(1) ){
+                   correct = true;
+               } else {
+                   correct = false;
+               }
            }
+           SQLSelectStatement.close();
        } catch (java.sql.SQLException e){
            e.printStackTrace();
        }
