@@ -14,7 +14,7 @@ public class Auth {
 //n tem que ser "true" na primeira chamada
        boolean verify = false;
        String SQLQuery = " SELECT * from account_login where Name = '"+user+"'";
-       if (SQLconnector.SQLconnectionALIVE() && n) {
+       if (SQLconnector.SQLconnetionALIVE() && n) {
             if (SQLconnector.SQLVerify(SQLQuery,user,false)) {
                 verify = true;
             }
@@ -23,7 +23,7 @@ public class Auth {
                Conf.Connect();
                User(user, false);
            }
-           if (SQLconnector.SQLconnectionALIVE() && !n){
+           if (SQLconnector.SQLconnetionALIVE() && !n){
                if (SQLconnector.SQLVerify(SQLQuery, user, false)){
                    verify = true;
                }
@@ -46,7 +46,7 @@ public class Auth {
                Conf.Connect();
                Pass(str, false);
            }
-           if (SQLconnector.SQLconnectionALIVE() && !n){
+           if (SQLconnector.SQLconnetionALIVE() && !n){
                if (SQLconnector.SQLVerify(SQLQuery, password, false)){
                    verify = true;
                }
