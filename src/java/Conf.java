@@ -182,4 +182,9 @@ public class Conf {
         miArray = readFile(ConfFile);
         return decrypt(miArray[6]);
     }
+    
+    public static void Connect() {
+        // criado este metodo porque o mesmo e necessario para testar a ligacao
+       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbinstance(),dbuser(),dbpassword());
+   }
 }
