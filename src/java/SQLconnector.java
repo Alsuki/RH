@@ -12,8 +12,6 @@ public class SQLconnector {
     
     private static java.sql.Connection connServer;
     
-    
-    
     private static String SQLconnection(String db_server, String db_port, String db_name, String db_instance, String db_user, String db_password) {
         return "jdbc:mysql://"+ db_server + "/" + db_instance + ":" + db_port + ";user=" + db_user + ";password=" + db_password + ";databaseName=" + db_name + ";";
     }
@@ -25,11 +23,12 @@ public class SQLconnector {
             Class.forName("com.mysql.jdbc.Driver");
             connServer = java.sql.DriverManager.getConnection(SQLconnection(db_server, db_port, db_name, db_instance ,db_userid, db_password));
             Cstatus = true;    
-           // SQLconnectionSTATUS() = true;
+            SQLconnectionSTATUS(true);
         } catch (Exception e) {
             ErrorStatement.Err("Faild to connect to Server\n Please verify you settings.");
             Cstatus = false;
         }
+        SQLconnectionSTATUS(Cstatus);
         return Cstatus;
     }
     
@@ -39,15 +38,16 @@ public class SQLconnector {
             Class.forName("com.mysql.jdbc.Driver");
             connServer.close();
             Cstatus = true;
+            SQLconnectionSTATUS(false);
         } catch (Exception e) {
             Cstatus = false;
+            SQLconnectionSTATUS(true);
         }
         return Cstatus;
     }
     
-    public static boolean SQLconnectionSTATUS() {
-        boolean sqlConnectionSTATUS=false;
-        return sqlConnectionSTATUS;
+    public static boolean SQLconnectionSTATUS(boolean Status) {
+        return Status;
     }
     
     public static boolean SQLconnectionTEST(String db_server, String db_port, String db_name, String db_instance,
@@ -62,11 +62,23 @@ public class SQLconnector {
             evt.printStackTrace();
             state = false;
         }
+        SQLconnectionSTATUS(state);
         return state;
     }
     
-    //public staic boolean SQLconnetionALIVE() {   
-    //}
+    public static boolean SQLconnetionALIVE() {  
+        boolean Status = false;
+        String SQLquery = "SELECT 1 from account_login;";
+        try {
+            java.sql.Statement SQLSelectStatement = connServer.createStatement();  
+            java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SQLquery);
+            Status = true;
+        } catch (Exception evt) {
+            evt.printStackTrace();
+            SQLconnectionSTATUS(false);
+        }
+        return Status;
+    }
     
    public static java.util.Vector SQLSelect(String SELECT, int n) {
        //retorma um vector com o resultado do select solicitado 
@@ -89,8 +101,19 @@ public class SQLconnector {
     return Result;
    }
     
-    //public static String SQLInsert() {
-    //}
+   public static boolean SQLInsert(String Insert) {
+       // Executa um insert recebido via string e retorna o resultado da execucao
+       boolean Status = false;
+        try {
+            java.sql.Statement SQLSelectStatement = connServer.createStatement();
+            SQLSelectStatement.executeUpdate(Insert);
+            SQLSelectStatement.close();
+            Status = true;
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        return Status;
+   }
     
    public static boolean SQLVerify(String SELECT, String ToVERIFY, boolean Cicle) {
        //Executes a SQL query recived via the SELECT string and compares it with
