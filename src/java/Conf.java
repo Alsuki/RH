@@ -16,7 +16,7 @@ public class Conf {
     };
     
     
-    private static String encrypt(String str) {
+    public static String encrypt(String str) {
         String result = "";
         int lenght = str.length();
         char caracter;
@@ -34,7 +34,7 @@ public class Conf {
         return result;
     }
     
-    private static String decrypt(String str) {
+    public static String decrypt(String str) {
         String result = "";
         int length = str.length();
         char caracter;
