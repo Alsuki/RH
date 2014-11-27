@@ -1,0 +1,34 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 26, 2014, 10:32:55 PM
+    Author     : alvega
+*/
+
+body {
+    background-color: #e2e2ee;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    margin-left: 75px;
+}
+
+img_center.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+img_left_bottom.displayed {
+    display: block;
+    margin-bottom: auto;
+    margin-left: auto
+}
+
+img_right_bottom.display {
+    display: block;
+    margin-right: auto;
+    margin-bottom: auto
+}
