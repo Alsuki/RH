@@ -1,3 +1,8 @@
+package RH_beans;
+
+
+import RH_beans.SQLconnector;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,7 +12,9 @@
  *
  * @author alvega
  */
+
 public class Conf {
+    
     private static String[] miArray = new String[6];
     private static String ConfFile = "rh.xml";
     
