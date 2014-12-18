@@ -173,11 +173,6 @@ public class Conf {
         return miArray[3];
     }
     
-    public static String dbinstance(){
-        miArray = readFile(ConfFile);
-        return miArray[4];
-    }
-    
     public static String dbuser(){
         miArray = readFile(ConfFile);
         return miArray[5];
@@ -190,6 +185,6 @@ public class Conf {
     
     public static void Connect() {
         // criado este metodo porque o mesmo e necessario para testar a ligacao
-       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbinstance(),dbuser(),dbpassword());
+       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbuser(),dbpassword());
    }
 }
