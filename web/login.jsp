@@ -38,7 +38,7 @@
                         </tr>
                     </tbody>
                 </table><br><br>
-                <button type="submit" value="login"/>
+                <input type="submit" name="LogB" value="login"/>
                 <%
                     String UserIn="", PassIn="";
                     if(request.getParameter("Name") != null) {
@@ -47,11 +47,13 @@
                     if(request.getParameter("Password") != null) {
                         PassIn = request.getParameter("Password");
                     }
+                    if (request.getParameter("LogB") != null) {
+                        // button1 is pressed.
+                    }
                 %>
                 <jsp:useBean id="RHsession" class="RH_beans.Auth" scope="session"/>
-                <jsp:setProperty name="RHsession" property="LoginUser" value="<%=UserIn%>"/>
-                <jsp:setProperty name="RHsession" property="LoginPass" value="<%=PassIn%>"/>
-                <!--jsp:getProperty name="RHsession" property="Login"/-->
+                <jsp:setProperty name="RHsession" property="loginUser" value="<%=UserIn%>"/>
+                <jsp:setProperty name="RHsession" property="loginPass" value="<%=PassIn%>"/>
         </div>
         <br><br><br><br><br><br><br><br>
         <div id="logo">

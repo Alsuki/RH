@@ -10,20 +10,21 @@ package RH_beans;
  * @author Acer
  */
 public class Auth {
-   public void setLoginUser (String LoginUser) {
-       this.LoginUser = LoginUser; 
+           
+   public void setLoginUser (String LogUser) {
+       this.LoginUser = LogUser; 
    }
    
-   public void setLoginPass (String LoginPass) {
-       this.LoginPass = LoginPass;
+   public void setLoginPass (String LogPass) {
+       this.LoginPass = LogPass;
    }
    
    public String getLogin(){
-       return CheckLogin(LoginUser, LoginPass);
+       return CheckLogin(this.LoginUser, this.LoginPass);
    }
    
    public String getLoginUser(){
-       return LoginUser;
+       return this.LoginUser;
    }
    
    private String LoginUser;
@@ -55,7 +56,7 @@ public class Auth {
    private boolean Pass(String password, boolean n ) {
        boolean verify = false;
        String str = Conf.encrypt(password);
-       String SQLQuery = "SELECT * from account_login where Password ='"+str+"'";
+       String SQLQuery = "SELECT * FROM account_login WHERE Nome=\"" + LoginUser + "\" AND Password='"+str+"';";
 
        if (SQLconnector.SQLVerify(SQLQuery, password,true)) {
          verify = true;
@@ -77,7 +78,7 @@ public class Auth {
    private boolean Estado(String user){
        boolean verify = false;
        //Novo select from account_login onde user estado
-        String SQLQuery = "SELECT * from account_login ";
+        String SQLQuery = "SELECT Estado FROM account_login WHERE Nome=\"" + user +"\";";
         if (SQLconnector.SQLVerify(SQLQuery,"" ,true)) {
             verify = true;
         } else {
@@ -97,13 +98,19 @@ public class Auth {
       int Counter = 0;
       if (User(luser,true)) {
           if (Pass(lpas,true)){
+              //  verificar logica esta com erro
               if(Estado(luser)) {
                   status = "login,Welcome!!";
               } else {
                   status = "error,Your account is lock, please contact this system Administrator.";
               } 
           } else {
-              if (contador(Counter) < 3) {
+              // falta verificar o estado da variavel
+              String SQLQuery = "SELECT Contador FROM account_login WHERE Nome=\"" + luser +"\";";
+             // String Rturn = SQLconnector.SQLSelect(SQLQuery,0);
+              String Rturn = "";
+              Counter = Integer.parseInt(Rturn);
+              if (contador(Counter /*converter para inteiro*/) < 3) {
                   String SQLInsert = "INSERT INTO account_lock Integer.toString(Counter)";
                   SQLconnector.SQLInsert(SQLInsert);
               } else { 

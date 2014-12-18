@@ -38,6 +38,7 @@ CREATE TABLE `account_login` (
   `Nome` varchar(25) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Estado` int(1) NOT NULL,
+  `Contador` int(1) NOT NULL,
   `ID_Lock` int(11) DEFAULT NULL,
   `Login` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `Last_Login` int(11) DEFAULT NULL,
@@ -227,4 +228,3 @@ CREATE TABLE `tel` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
