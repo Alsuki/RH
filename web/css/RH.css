@@ -48,3 +48,14 @@ main { background: #e2e2ee }
     bottom: 5px;
     height: 20px;
 }
+
+#Popup {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: auto;
+    height: auto;
+    padding: 30px 50px 50px 30px;
+    border-width: 1px;
+    border-style: solid;
+}

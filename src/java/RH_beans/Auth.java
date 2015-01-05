@@ -1,5 +1,7 @@
 package RH_beans;
 
+import javax.servlet.RequestDispatcher;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,7 +11,7 @@ package RH_beans;
  *
  * @author Acer
  */
-public class Auth {
+public class Auth extends javax.servlet.http.HttpServlet {
            
    public void setLoginUser (String LogUser) {
        this.LoginUser = LogUser; 
@@ -19,8 +21,20 @@ public class Auth {
        this.LoginPass = LogPass;
    }
    
-   public String getLogin(){
-       return CheckLogin(this.LoginUser, this.LoginPass);
+   public boolean getLogin(){
+       // corrigido o construtor para apenas rentornar verdadiro/falso.
+        this.ErrorDetected = "";
+        if (CheckLogin(this.LoginUser, this.LoginPass).contains("error")) {
+            String segments[] = CheckLogin(this.LoginUser, this.LoginPass).split(";");
+            this.ErrorDetected = segments[segments.length - 1];
+            return false;
+        } else {
+            return true;
+        }
+   }
+   
+   public String getError(){
+       return this.ErrorDetected;
    }
    
    public String getLoginUser(){
@@ -29,6 +43,31 @@ public class Auth {
    
    private String LoginUser;
    private String LoginPass;
+   private String ErrorDetected;
+   
+   protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+           throws javax.servlet.ServletException, java.io.IOException {
+       response.setContentType("text/html/charset=UTF-8");
+       java.io.PrintWriter out = response.getWriter();
+       this.LoginUser = request.getParameter("Name");
+       this.LoginPass = request.getParameter("Password");
+       try {
+           if (this.getLogin()){
+               javax.servlet.http.HttpSession session = request.getSession();
+               session.setAttribute("user", LoginUser);
+               javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("rh");
+               rd.forward(request, response);
+           }else {
+               javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+               rd.include(request, response);
+           }
+               
+       } finally {
+           out.close();
+       }
+   }
+   
+   
    
    private boolean User(String user, boolean n) {   
     //n tem que ser "true" na primeira chamada
@@ -100,9 +139,9 @@ public class Auth {
           if (Pass(lpas,true)){
               //  verificar logica esta com erro
               if(Estado(luser)) {
-                  status = "login,Welcome!!";
+                  status = "login";
               } else {
-                  status = "error,Your account is lock, please contact this system Administrator.";
+                  status = "error;Your account is lock, please contact this system Administrator.";
               } 
           } else {
               // falta verificar o estado da variavel
@@ -114,11 +153,11 @@ public class Auth {
                   String SQLInsert = "INSERT INTO account_lock Integer.toString(Counter)";
                   SQLconnector.SQLInsert(SQLInsert);
               } else { 
-                  status = "error,User or Password were incorrect. Please try again!";
+                  status = "error;User or Password were incorrect. Please try again!";
               }
           } 
       } else {
-          status = "error,User or Password were incorrect. Please try again!";
+          status = "error;User or Password were incorrect. Please try again!";
       }
       return status;
   } 

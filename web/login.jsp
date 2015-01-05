@@ -12,12 +12,21 @@
         <link rel="stylesheet" type="text/css" href="css/RH.css">
         <title>RH Managing Your Future</title>
     </head>
+    <%--script>
+        //javascript
+        function show(){
+                document.getElementById('Popup').style.display = 'block';
+            }
+        function close(){
+            document.getElementById('Popup').style.display = 'none';
+        }
+    </script--%>
     <body bgcolor="#e2e2ee">
         <%-- fonte da imagem
            http://blog.inszoom.com/five-reasons-why-immigration-is-important-in-overall-hr-strategy/humanresources/
         --%>
         <div style="width:200px;height:120px;border:1px solid #000; margin:0 auto;">
-            <form action="login" method="post">
+            <form action="Auth" method="post">
                 <table>
                     <tbody>
                         <tr>
@@ -38,8 +47,8 @@
                         </tr>
                     </tbody>
                 </table><br><br>
-                <input type="submit" name="LogB" value="login"/>
-                <%
+                <%--
+                    //java
                     String UserIn="", PassIn="";
                     if(request.getParameter("Name") != null) {
                         UserIn = request.getParameter("Name");
@@ -48,13 +57,18 @@
                         PassIn = request.getParameter("Password");
                     }
                     if (request.getParameter("LogB") != null) {
-                        // button1 is pressed.
+                       
                     }
                 %>
                 <jsp:useBean id="RHsession" class="RH_beans.Auth" scope="session"/>
                 <jsp:setProperty name="RHsession" property="loginUser" value="<%=UserIn%>"/>
-                <jsp:setProperty name="RHsession" property="loginPass" value="<%=PassIn%>"/>
+                <jsp:setProperty name="RHsession" property="loginPass" value="<%=PassIn%>"/> --%>
+                <input type="submit" value="login"/>  
         </div>
+        <%--div id="Popup">
+            <jsp:getProperty name="RHsession" property="error"/>
+            <input type="submit" value="OK">
+        </div--%>
         <br><br><br><br><br><br><br><br>
         <div id="logo">
             <img src="Images/HumanResources-300x182.jpg" style="width:300px; height:182px">
