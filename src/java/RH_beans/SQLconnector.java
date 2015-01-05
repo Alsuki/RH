@@ -1,3 +1,5 @@
+package RH_beans;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,16 +14,16 @@ public class SQLconnector {
     
     private static java.sql.Connection connServer;
     
-    private static String SQLconnection(String db_server, String db_port, String db_name, String db_instance, String db_user, String db_password) {
-        return "jdbc:mysql://"+ db_server + "/" + db_instance + ":" + db_port + ";user=" + db_user + ";password=" + db_password + ";databaseName=" + db_name + ";";
+    private static String SQLconnection(String db_server, String db_port, String db_name, String db_user, String db_password) {
+        return "jdbc:mysql://" + db_server + ":" + db_port + "/"+ db_name + "?" + "user=" + db_user + "&password=" + db_password;
     }
     
-    public static boolean SQLconnectionSTART(String db_server, String db_port, String db_name, String db_instance,
+    public static boolean SQLconnectionSTART(String db_server, String db_port, String db_name,
             String db_userid, String db_password){
         boolean Cstatus= false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connServer = java.sql.DriverManager.getConnection(SQLconnection(db_server, db_port, db_name, db_instance ,db_userid, db_password));
+            connServer = java.sql.DriverManager.getConnection(SQLconnection(db_server, db_port, db_name,db_userid, db_password));
             Cstatus = true;    
             SQLconnectionSTATUS(true);
         } catch (Exception e) {
@@ -55,7 +57,7 @@ public class SQLconnector {
         boolean state = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connServer = java.sql.DriverManager.getConnection(SQLconnection(db_server, db_port, db_name, db_instance ,db_userid, db_password));
+            connServer = java.sql.DriverManager.getConnection(SQLconnection(db_server, db_port, db_name, db_userid, db_password));
             connServer.close();
             state = true;
         } catch (Exception evt) {
