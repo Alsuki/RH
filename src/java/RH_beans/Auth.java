@@ -64,9 +64,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
            out.close();
        }
    }
-   
-   
-   
+
    private boolean User(String user, boolean n) {   
     //n tem que ser "true" na primeira chamada
     boolean verify = false;
@@ -123,8 +121,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
         }
      return verify;
    }
-   
-   
+
   private int contador(int i){
       i++;
       return i;
