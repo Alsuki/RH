@@ -1,3 +1,6 @@
+package RH_beans;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,7 +10,9 @@
  *
  * @author alvega
  */
+
 public class Conf {
+    
     private static String[] miArray = new String[6];
     private static String ConfFile = "rh.xml";
     
@@ -76,20 +81,18 @@ public class Conf {
         
     }
     
-    public static void SaveToFile(String ServerSTR, String PortSTR, String UserSTR, String PasswordSTR, String InstanceSTR, String DatabaseSTR) {
+    public static void SaveToFile(String ServerSTR, String PortSTR, String UserSTR, String PasswordSTR, String DatabaseSTR) {
         //Preperes the information to be save on the file
         String result = "";
         String Server = encrypt(ServerSTR);
         String Port = encrypt(PortSTR);
         String User = encrypt(UserSTR);
         String Password = encrypt(PasswordSTR);
-        String Instancia = encrypt(InstanceSTR);
         String Database = encrypt(DatabaseSTR);
         result = ("<Server>" + Server + "</Server>\n");
         result = (result + "<Port>" + Port + "</Port>\n");
         result = (result + "<User>" + User + "</User>\n");
         result = (result + "<Password>" + Password + "</Password>\n");
-        result = (result + "<Instancia>" + Instancia + "</Instancia>\n");
         result = (result + "<Database>" + Database + "</Database>");
         save(result);
     }
@@ -113,9 +116,6 @@ public class Conf {
             }
           if (line.contains("Database")) {
                 str[2] = Value(line);
-            }
-            if (line.contains("Instancia")) {
-                str[3] = Value(line);
             }
             if (line.contains("User")) {
                 str[4] = Value(line);
@@ -168,11 +168,6 @@ public class Conf {
         return miArray[3];
     }
     
-    public static String dbinstance(){
-        miArray = readFile(ConfFile);
-        return miArray[4];
-    }
-    
     public static String dbuser(){
         miArray = readFile(ConfFile);
         return miArray[5];
@@ -185,6 +180,6 @@ public class Conf {
     
     public static void Connect() {
         // criado este metodo porque o mesmo e necessario para testar a ligacao
-       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbinstance(),dbuser(),dbpassword());
+       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbuser(),dbpassword());
    }
 }
