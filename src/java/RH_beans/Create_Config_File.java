@@ -86,6 +86,8 @@ public class Create_Config_File {
         */
         AskQuestions();
         Conf.SaveToFile(Server, ServerPort, DBUser, DBPass, Database);
+        //System.out.println(Conf.dbuser());
+        //System.out.println(Conf.dbpassword());
     }
     
 }

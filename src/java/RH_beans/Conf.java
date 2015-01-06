@@ -13,7 +13,7 @@ package RH_beans;
 
 public class Conf {
     
-    private static String[] miArray = new String[6];
+    private static String[] miArray = new String[5];
     private static String ConfFile = "rh.xml";
     
     private static final int[] cypher = {
@@ -35,7 +35,6 @@ public class Conf {
             result += caracter;
             ck++;
         }
-        
         return result;
     }
     
@@ -105,7 +104,7 @@ public class Conf {
     
     private static String[] LineToArray(String[] lines) {
         // Obtem a linha do ficheiro e retorna o valor correcto na posicao correcta do array
-        String[] str = new String[6];
+        String[] str = new String[5];
 
         for (String line : lines) {
             if (line.contains("Server")){
@@ -118,10 +117,10 @@ public class Conf {
                 str[2] = Value(line);
             }
             if (line.contains("User")) {
-                str[4] = Value(line);
+                str[3] = Value(line);
             }
             if (line.contains("Password")) {
-                str[5] = Value(line);
+                str[4] = Value(line);
             }
         }
         return str;
@@ -132,13 +131,13 @@ public class Conf {
         java.io.FileReader file;
         java.io.BufferedReader conf;
         int i = 0;
-        String[] lines = new String[6];
+        String[] lines = new String[5];
         try {
              file = new java.io.FileReader(str);
             try {
                 conf = new java.io.BufferedReader(file);
                 try {
-                    while ( i<6 ) {
+                    while ( i<5 ) {
                         lines[i] = conf.readLine();
                         i++;
                     }
@@ -155,27 +154,27 @@ public class Conf {
     
     public static String server(){
         miArray = readFile(ConfFile);
-        return miArray[1];
+        return decrypt(miArray[0]);
     }
     
     public static String serverport(){
         miArray = readFile(ConfFile);
-        return miArray[2];
+        return decrypt(miArray[1]);
     }
     
     public static String dbname(){
         miArray = readFile(ConfFile);
-        return miArray[3];
+        return decrypt(miArray[2]);
     }
     
     public static String dbuser(){
         miArray = readFile(ConfFile);
-        return miArray[5];
+        return decrypt(miArray[3]);
     }
     
     public static String dbpassword(){
         miArray = readFile(ConfFile);
-        return decrypt(miArray[6]);
+        return decrypt(miArray[4]);
     }
     
     public static void Connect() {
