@@ -26,7 +26,8 @@ public class rh extends javax.servlet.http.HttpServlet {
         javax.servlet.http.HttpSession session = request.getSession(false);
         try {
             if (session != null) {
-            //html
+            //html 
+               
             } else {
                 javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                 rd.include(request, response);

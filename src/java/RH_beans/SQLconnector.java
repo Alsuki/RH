@@ -70,7 +70,7 @@ public class SQLconnector {
     
     public static boolean SQLconnetionALIVE() {  
         boolean Status = false;
-        String SQLquery = "SELECT 1 from account_login;";
+        String SQLquery = "select 1 from account_login;";
         try {
             java.sql.Statement SQLSelectStatement = connServer.createStatement();  
             java.sql.ResultSet SQLSelectResult = SQLSelectStatement.executeQuery(SQLquery);
@@ -140,10 +140,12 @@ public class SQLconnector {
                    }
                }
            } else {
-               if (ToVERIFY == SQLSelectResult.getString(1) ){
-                   correct = true;
-               } else {
-                   correct = false;
+               if (SQLSelectResult.next()) {
+                    if (ToVERIFY.equals(SQLSelectResult.getString(1))) {
+                        correct = true;
+                    } else {
+                        correct = false;
+                    }
                }
            }
            SQLSelectStatement.close();
@@ -151,7 +153,6 @@ public class SQLconnector {
            e.printStackTrace();
        }
        return correct;
-       
    }
     
 }

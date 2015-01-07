@@ -19,7 +19,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
        this.LoginPass = LogPass;
    }
    
-   private boolean getLogin(){
+   public boolean getLogin(){
        // corrigido o construtor para apenas rentornar verdadiro/falso.
         this.ErrorDetected = "";
         if (CheckLogin(this.LoginUser, this.LoginPass).contains("error")) {
@@ -44,44 +44,50 @@ public class Auth extends javax.servlet.http.HttpServlet {
    private String ErrorDetected;
    
    private boolean User(String user, boolean n) {   
-    //n tem que ser "true" na primeira chamada
-    boolean verify = false;
-    String SQLQuery = " SELECT * from account_login where Name = '"+user+"'";
-    if (SQLconnector.SQLconnetionALIVE() && n) {
-        if (SQLconnector.SQLVerify(SQLQuery,user,false)) {
-            verify = true;
-        }
-    } else {
-        if (n){
+        //n tem que ser "true" na primeira chamada
+        boolean verify= false;
+
+        String SQLQuery = "SELECT Nome from account_login where Nome = \"" + user + "\";";
+        if (!SQLconnector.SQLconnetionALIVE() && n) {
             Conf.Connect();
-            User(user, false);
+            User(user,false);
         }
-        if (SQLconnector.SQLconnetionALIVE() && !n){
-            if (SQLconnector.SQLVerify(SQLQuery, user, false)){
+        
+        if (SQLconnector.SQLconnetionALIVE() && n) {
+            if (SQLconnector.SQLVerify(SQLQuery,user,false)) {
                 verify = true;
             }
         }
-    }
-    /* se nao for = verdade retorna o false declarado acima. */
-    return verify;
+        
+        if (SQLconnector.SQLconnetionALIVE() && !n){
+            if (SQLconnector.SQLVerify(SQLQuery,user,false)){
+                verify = true;
+            }
+        }
+    
+        /* se nao for = verdade retorna o false declarado acima. */
+        return verify;
    }
 
-   private boolean Pass(String password, boolean n ) {
+   private boolean Pass(String password,String user, boolean n ) {
        boolean verify = false;
        String str = Conf.encrypt(password);
-       String SQLQuery = "SELECT * FROM account_login WHERE Nome=\"" + LoginUser + "\" AND Password='"+str+"';";
+       String SQLQuery = "SELECT Password FROM account_login WHERE Nome= \"" + user + "\" AND Password=\"" + password + "\";";
 
-       if (SQLconnector.SQLVerify(SQLQuery, password,true)) {
-         verify = true;
-          } else {
-           if (n){
-               Conf.Connect();
-               Pass(str, false);
+       if (!SQLconnector.SQLconnetionALIVE() && n) {
+            Conf.Connect();
+            Pass(str,user,false);
+        }
+       
+       if (SQLconnector.SQLconnetionALIVE() && n) {
+           if (SQLconnector.SQLVerify(SQLQuery, password, false)) {
+                verify = true;
            }
-           if (SQLconnector.SQLconnetionALIVE() && !n){
-               if (SQLconnector.SQLVerify(SQLQuery, password, false)){
-                   verify = true;
-               }
+       }
+       
+       if (SQLconnector.SQLconnetionALIVE() && !n){
+           if (SQLconnector.SQLVerify(SQLQuery, password, false)){
+                verify = true;
            }
        }
     /* se nao for = verdade retorna o false declarado acima. */
@@ -91,25 +97,24 @@ public class Auth extends javax.servlet.http.HttpServlet {
    private boolean Estado(String user){
        boolean verify = false;
        //Novo select from account_login onde user estado
+       //Se o estado for 0 entao true so o estado for 1 entao false
         String SQLQuery = "SELECT Estado FROM account_login WHERE Nome=\"" + user +"\";";
-        if (SQLconnector.SQLVerify(SQLQuery,"" ,true)) {
+        if (SQLconnector.SQLVerify(SQLQuery,"0",false)) {
             verify = true;
-        } else {
-           
-        }
-     return verify;
+        } 
+        return verify;
    }
 
-  private int contador(int i){
+   private int contador(int i){
       i++;
       return i;
-  } 
-  
-  private String CheckLogin(String luser, String lpas) {
+   }
+   
+   private  String CheckLogin(String luser, String lpas) {
       String status = "";
       int Counter = 0;
       if (User(luser,true)) {
-          if (Pass(lpas,true)){
+          if (Pass(lpas,luser,true)){
               //  verificar logica esta com erro
               if(Estado(luser)) {
                   status = "login";
@@ -152,7 +157,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
         this.LoginPass = request.getParameter("Password");
         try {           
             if (this.getLogin()){
-               javax.servlet.http.HttpSession session = request.getSession();
+               javax.servlet.http.HttpSession session = request.    getSession();
                session.setAttribute("user", LoginUser);
                javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("rh");
                rd.forward(request, response);
