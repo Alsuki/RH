@@ -11,20 +11,20 @@ package RH_beans;
  */
 public class Auth extends javax.servlet.http.HttpServlet {
             
-   public void setLoginUser (String LogUser) {
-       this.LoginUser = LogUser; 
+   public static void setLoginUser (String LogUser) {
+       LoginUser = LogUser; 
    }
    
-   public void setLoginPass (String LogPass) {
-       this.LoginPass = LogPass;
+   public static void setLoginPass (String LogPass) {
+       LoginPass = LogPass;
    }
    
-   public boolean getLogin(){
+   public static boolean getLogin(){
        // corrigido o construtor para apenas rentornar verdadiro/falso.
-        this.ErrorDetected = "";
-        if (CheckLogin(this.LoginUser, this.LoginPass).contains("error")) {
-            String segments[] = CheckLogin(this.LoginUser, this.LoginPass).split(";");
-            this.ErrorDetected = segments[segments.length - 1];
+        ErrorDetected = "";
+        if (CheckLogin(LoginUser, LoginPass).contains("error")) {
+            String segments[] = CheckLogin(LoginUser, LoginPass).split(";");
+            ErrorDetected = segments[segments.length - 1];
             return false;
         } else {
             return true;
@@ -39,11 +39,11 @@ public class Auth extends javax.servlet.http.HttpServlet {
        return this.LoginUser;
    }
    
-   private String LoginUser;
-   private String LoginPass;
-   private String ErrorDetected;
+   private static String LoginUser;
+   private static String LoginPass;
+   private static String ErrorDetected;
    
-   private boolean User(String user, boolean n) {   
+   private static boolean User(String user, boolean n) {   
         //n tem que ser "true" na primeira chamada
         boolean verify= false;
 
@@ -69,14 +69,15 @@ public class Auth extends javax.servlet.http.HttpServlet {
         return verify;
    }
 
-   private boolean Pass(String password,String user, boolean n ) {
+   private static boolean Pass(String password,String user, boolean n ) {
        boolean verify = false;
-       String str = Conf.encrypt(password);
+       // a ser usado depois...
+       //String str = Conf.encrypt(password);
        String SQLQuery = "SELECT Password FROM account_login WHERE Nome= \"" + user + "\" AND Password=\"" + password + "\";";
 
        if (!SQLconnector.SQLconnetionALIVE() && n) {
             Conf.Connect();
-            Pass(str,user,false);
+            Pass(password,user,false);
         }
        
        if (SQLconnector.SQLconnetionALIVE() && n) {
@@ -94,7 +95,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
      return verify;
      }
 
-   private boolean Estado(String user){
+   private static boolean Estado(String user){
        boolean verify = false;
        //Novo select from account_login onde user estado
        //Se o estado for 0 entao true so o estado for 1 entao false
@@ -105,12 +106,12 @@ public class Auth extends javax.servlet.http.HttpServlet {
         return verify;
    }
 
-   private int contador(int i){
+   private static int contador(int i){
       i++;
       return i;
    }
    
-   private  String CheckLogin(String luser, String lpas) {
+   private  static String CheckLogin(String luser, String lpas) {
       String status = "";
       int Counter = 0;
       if (User(luser,true)) {
