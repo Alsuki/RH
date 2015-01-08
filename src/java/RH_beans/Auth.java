@@ -53,7 +53,7 @@ public class Auth extends javax.servlet.http.HttpServlet {
            if (this.getLogin()){
                javax.servlet.http.HttpSession session = request.getSession();
                session.setAttribute("user", LoginUser);
-               javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("rh");
+               javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("rh.jsp");
                rd.forward(request, response);
            }else {
                javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
