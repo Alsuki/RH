@@ -1,0 +1,119 @@
+@charset "utf-8";
+/* CSS Document edson */
+html,body{
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+.Luser{
+	background:#765A5A;
+	text-align:center;
+	font-family: Arial;
+	text-decoration:none;
+	height:30px;
+	width:150px;
+	display:block;
+	color:f5f5f5;
+	border:1px solid #000;
+	text-shadow:1px 1px 1px #000;
+} 
+
+
+#navMenu{
+	margin:0;
+	padding:0;
+}
+
+#navMenu ul{
+	margin:0;
+	padding:0;
+	line-height:30px;
+	}
+
+#navMenu li{
+	margin:0;
+	padding:0;
+	list-style:none;
+	float:left;
+	position:relative;
+	background:#999;
+}
+
+#navMenu ul li a{
+	text-align:center;
+	font-family: Arial;
+	text-decoration:none;
+	height:30px;
+	width:150px;
+	display:block;
+	color:#FFF;
+	border:1px solid #000;
+	text-shadow:1px 1px 1px #000;
+}
+#navMenu ul ul{
+	position:absolute;
+	visibility:hidden;
+	top:30px;
+}
+
+#navMenu ul li:hover ul{
+	visibility:visible;
+	}
+	
+#navMenu li:hover{
+	background:#010EFF;
+}
+
+
+.clearFloat{
+	clear:both;
+	margin:0;
+	padding:0;
+}
+
+.foto{
+	width: 20%;
+	height: 260px;
+	float: right;
+	background: #00FFFF;
+}
+.foto img{
+	width: 100%;
+	height: 100%;
+	float: c;
+}
+.identificacao{
+	width: 80%;
+	height: 260px;
+	float: left;
+	background: #AFEEEE;
+}
+
+#textarea{
+	width: 100%;
+	height: 200px;
+	float: right;
+	background: #888;
+}
+#competencia{
+width:40%;
+height:150px;
+bacground-color:rgb(0,0,0,1);
+background-color:#544A5A;
+float:left;
+}
+
+#experiencia{
+width:40%;
+height:150px;
+bacground-color:rgb(0,0,0,1);
+background-color:#544A5A;
+float:right;
+}
+.cv_cr{
+	width: 100%;
+	height: 100px;
+	float: right;
+	background: #C0C0C0;
+}
