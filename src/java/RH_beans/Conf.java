@@ -1,6 +1,5 @@
 package RH_beans;
 
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,12 +13,11 @@ package RH_beans;
 public class Conf {
     
     private static String[] miArray = new String[5];
-    private static String ConfFile = "rh.xml";
+    private static String ConfFile = "Conf.d/rh.xml";
     
     private static final int[] cypher = {
         382019, 8320198, 23, 565655, 839, 5362, 3672, 3781, 6371866, 80321, 3267, 7312938
     };
-    
     
     public static String encrypt(String str) {
         String result = "";
@@ -54,7 +52,7 @@ public class Conf {
         return result;
     }
     
-    public static void save(String str){
+    private static void save(String str){
         //Saves settings to file
         java.io.File setings = new java.io.File(ConfFile);
         if (setings.exists()) {
@@ -77,7 +75,6 @@ public class Conf {
                 evt.printStackTrace();
             }
         }
-        
     }
     
     public static void SaveToFile(String ServerSTR, String PortSTR, String UserSTR, String PasswordSTR, String DatabaseSTR) {
@@ -95,6 +92,7 @@ public class Conf {
         result = (result + "<Database>" + Database + "</Database>");
         save(result);
     }
+    
     private static String Value(String str){
         //Returns the expected string
 	String[] splinter = str.split(">");
@@ -107,50 +105,65 @@ public class Conf {
         String[] str = new String[5];
 
         for (String line : lines) {
+
             if (line.contains("Server")){
                 str[0] = Value(line);
             }
+            
             if (line.contains("Port")) {
                 str[1] = Value(line);
             }
-          if (line.contains("Database")) {
+            
+            if (line.contains("Database")) {
                 str[2] = Value(line);
             }
+            
             if (line.contains("User")) {
                 str[3] = Value(line);
             }
+            
             if (line.contains("Password")) {
                 str[4] = Value(line);
             }
         }
         return str;
     }
-    
+
     private static String[] readFile(String str) {
         //parses a given file for configuration information
-        java.io.FileReader file;
-        java.io.BufferedReader conf;
+
+        java.io.File filo = new java.io.File(str);
+        System.out.println(filo.getAbsolutePath());
         int i = 0;
         String[] lines = new String[5];
-        try {
-             file = new java.io.FileReader(str);
-            try {
-                conf = new java.io.BufferedReader(file);
-                try {
-                    while ( i<5 ) {
-                        lines[i] = conf.readLine();
-                        i++;
-                    }
-                } catch (java.io.IOException evt) {}
-            } finally {
-                try {
-                    conf = new java.io.BufferedReader(file);
-                    conf.close();
-                }catch (java.io.IOException evt) {}
+        String content = " ";
+        java.io.FileInputStream fis = null;
+        java.io.BufferedReader reader = null;
+        
+        try  {
+            fis = new java.io.FileInputStream(str);
+            reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis));
+            while ((content = reader.readLine()) != null) {
+                lines[i] = content;
+                i++;
             }
-        }  catch (java.io.FileNotFoundException evt) {}  
-       return LineToArray(lines);
+        } catch (java.io.FileNotFoundException ex) {
+            //ex.printStackTrace();
+            System.out.println("filo not found");
+        }
+        catch (java.io.IOException e) {
+                e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+                fis.close();
+            } catch (java.io.IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return LineToArray(lines);
     }
+
     
     public static String server(){
         miArray = readFile(ConfFile);

@@ -14,7 +14,7 @@
     </head>
     <body bgcolor="#e2e2ee">
         <div style="width:200px;height:120px;border:1px solid #000; margin:0 auto;">
-            <form action="Auth" method="post">
+            <form action="login_Servlet" method="post">
                 <table>
                     <tbody>
                         <tr>
@@ -35,7 +35,9 @@
                         </tr>
                     </tbody>
                 </table><br><br>
-                <input type="submit" value="login"/>  
+                <input type="submit" value="login"/> 
+                <input type="reset" value="clear"/>
+            </form>
         </div>
         <br><br><br><br><br><br><br><br>
         <div id="logo">

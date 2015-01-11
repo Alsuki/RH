@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Auth</servlet-name>
-        <servlet-class>RH_beans.Auth</servlet-class>
+        <servlet-name>login</servlet-name>
+        <servlet-class>RH_servlet.login_Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>rh</servlet-name>
-        <url-pattern>/rh</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Auth</servlet-name>
-        <url-pattern>/Auth</url-pattern>
+        <servlet-name>login</servlet-name>
+         <url-pattern>/login_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -21,8 +17,4 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>rh</servlet-name>
-        <servlet-class>RH_beans.rh</servlet-class>
-    </servlet>
 </web-app>

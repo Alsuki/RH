@@ -13,12 +13,12 @@ import static RH_beans.SQLconnector.SQLconnectionSTATUS;
  */
 public class Bug_trake {
     public static void main(String[] args){
-        Auth.setLoginUser("admin");
-        Auth.setLoginPass("admin");
+        Auth.LoginUser="admin";
+        Auth.LoginPass="admin";
         //test = Auth.User("admin",true);
         //System.out.println(Auth.User("admin",true));
         //System.out.println(Auth.Pass("admin","admin",true));
-        System.out.println(Auth.getLogin());
+        System.out.println(Auth.Login());
         
     }
 }
