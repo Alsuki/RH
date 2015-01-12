@@ -13,7 +13,7 @@ package RH_beans;
 public class Conf {
     
     private static String[] miArray = new String[5];
-    private static String ConfFile = "rh.xml";
+    private static String ConfFile = "//Conf.d/rh.xml";
     
     private static final int[] cypher = {
         382019, 8320198, 23, 565655, 839, 5362, 3672, 3781, 6371866, 80321, 3267, 7312938
@@ -132,36 +132,42 @@ public class Conf {
     private static String[] readFile(String str)
         throws java.io.IOException {
         //parses a given file for configuration information
-
-        java.io.File filo = new java.io.File(str);
-        System.out.println(filo.getAbsolutePath());
         int i = 0;
         String[] lines = new String[5];
         String content = "";
         java.io.FileInputStream fis = null;
         java.io.BufferedReader reader = null;
         
-        try  {
-            fis = new java.io.FileInputStream(str);
-            reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis));
-            while ((content = reader.readLine()) != null) {
-                lines[i] = content;
-                i++;
-            }
-        } catch (java.io.FileNotFoundException ex) {
-               // deve executar um html de recolha de dados.
-        }
-        catch (java.io.IOException e) {
-                e.printStackTrace();
-        } finally {
+        java.io.File f = new java.io.File(str);
+        if(!f.exists()) {
             try {
-                reader.close();
-                fis.close();
-            } catch (java.io.IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return LineToArray(lines);
+                    java.awt.Desktop.getDesktop().browse(new java.net.URI(
+                            "http://localhost:8080/RH//html/Create_Config_File.html"));
+                } catch (java.net.URISyntaxException ex1) {
+                    java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex1);
+                }
+            } else { 
+                try  {
+                    fis = new java.io.FileInputStream(str);
+                    reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis));
+                    while ((content = reader.readLine()) != null) {
+                        lines[i] = content;
+                        i++;
+                    }
+                } catch (java.io.FileNotFoundException ex) {
+                    // deve executar um html de recolha de dados.
+                } catch (java.io.IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        reader.close();
+                        fis.close();
+                    } catch (java.io.IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            } 
+        return LineToArray(lines); 
     }
     
     public static String server(){
