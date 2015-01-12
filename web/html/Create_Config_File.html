@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>RH configuration</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       <form name="saveForm" method="post" action="Create_Config_File">
+        <table>
+            <tr>
+                <td style="width: 240px">
+                    Server name or IP: 
+                </td>
+                <td> 
+                    <input id="server" type="text" size="42">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 240px">
+                    Server Port: 
+                </td>
+                <td>
+                    <input id="serverport" type="text" size="42">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 240px">
+                    Database Name: 
+                </td>
+                <td>
+                    <input id="dbname" type="text" size="42">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 240px">
+                    Database User: 
+                </td>
+                <td>
+                    <input id="dbuser" type="text" size="42">
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 240px">
+                    Database User Password: 
+                </td>
+                <td>
+                    <input id="dbpass" type="password" size="42">
+                </td>
+            </tr>
+
+            <tr>
+                <td style="witdth: 100%">
+                    <input type="submit" value="save"/>
+                </td>
+            </tr>
+        </table>
+       </form>
+    </body>
+</html>

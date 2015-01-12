@@ -73,7 +73,7 @@ out.print(session.getAttribute("user"));
 </form>
 </div>
 <div class="foto">
-<img src="fotoEu.jpg" alt="foto" >
+<img src="Images/is_shine_administrator.jpg" alt="foto" >
 </div>
 <div id="textarea">
 <br/>

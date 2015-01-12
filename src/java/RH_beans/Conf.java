@@ -13,7 +13,7 @@ package RH_beans;
 public class Conf {
     
     private static String[] miArray = new String[5];
-    private static String ConfFile = "Conf.d/rh.xml";
+    private static String ConfFile = "rh.xml";
     
     private static final int[] cypher = {
         382019, 8320198, 23, 565655, 839, 5362, 3672, 3781, 6371866, 80321, 3267, 7312938
@@ -129,14 +129,15 @@ public class Conf {
         return str;
     }
 
-    private static String[] readFile(String str) {
+    private static String[] readFile(String str)
+        throws java.io.IOException {
         //parses a given file for configuration information
 
         java.io.File filo = new java.io.File(str);
         System.out.println(filo.getAbsolutePath());
         int i = 0;
         String[] lines = new String[5];
-        String content = " ";
+        String content = "";
         java.io.FileInputStream fis = null;
         java.io.BufferedReader reader = null;
         
@@ -148,8 +149,7 @@ public class Conf {
                 i++;
             }
         } catch (java.io.FileNotFoundException ex) {
-            //ex.printStackTrace();
-            System.out.println("filo not found");
+               // deve executar um html de recolha de dados.
         }
         catch (java.io.IOException e) {
                 e.printStackTrace();
@@ -163,35 +163,57 @@ public class Conf {
         }
         return LineToArray(lines);
     }
-
     
     public static String server(){
-        miArray = readFile(ConfFile);
+       try {
+            miArray = readFile(ConfFile);
+        } catch (java.io.IOException ex) {
+            java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return decrypt(miArray[0]);
     }
     
     public static String serverport(){
-        miArray = readFile(ConfFile);
+       try {
+            miArray = readFile(ConfFile);
+        } catch (java.io.IOException ex) {
+            java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return decrypt(miArray[1]);
     }
     
     public static String dbname(){
-        miArray = readFile(ConfFile);
+      try {
+            miArray = readFile(ConfFile);
+        } catch (java.io.IOException ex) {
+            java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return decrypt(miArray[2]);
     }
     
     public static String dbuser(){
-        miArray = readFile(ConfFile);
+      try {
+            miArray = readFile(ConfFile);
+        } catch (java.io.IOException ex) {
+            java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return decrypt(miArray[3]);
     }
     
     public static String dbpassword(){
-        miArray = readFile(ConfFile);
+        try {
+            miArray = readFile(ConfFile);
+        } catch (java.io.IOException ex) {
+            java.util.logging.Logger.getLogger(Conf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return decrypt(miArray[4]);
     }
     
     public static void Connect() {
         // criado este metodo porque o mesmo e necessario para testar a ligacao
-       SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbuser(),dbpassword());
+        // nao consigo encontrar o ficheiro no sistema tomcat.
+        // para resolver...
+       //SQLconnector.SQLconnectionSTART(server(),serverport(),dbname(),dbuser(),dbpassword());
+       SQLconnector.SQLconnectionSTART("localhost","3306","RH","RH","RH");
    }
 }

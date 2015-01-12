@@ -27,8 +27,6 @@ public class login_Servlet extends javax.servlet.http.HttpServlet {
         }
 
         if (RH_beans.Auth.Login())
-        System.out.println(RH_beans.Auth.LoginUser);
-        /*
         {
             javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
             rd.forward(request, response);
@@ -36,7 +34,7 @@ public class login_Servlet extends javax.servlet.http.HttpServlet {
             out.print("<p style=\"color:red\">Sorry username or password error</p>"); 
             javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.include(request, response);
-        } */
+        }
         out.close();
     }
 }
